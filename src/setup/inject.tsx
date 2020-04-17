@@ -5,3 +5,7 @@ window.ldm = {
     }, timeout * 1000);
   },
 };
+
+const aaa: any = {};
+
+const bbb = aaa?.bbb?.vvv;

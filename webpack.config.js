@@ -12,7 +12,6 @@ module.exports = env => {
       extensions: ['.ts', '.tsx', '.js', '.jsx'],
     },
     mode: 'development',
-    // devtool: 'source-map',
     devtool: 'inline-source-map',
     entry: {
       background: './src/background/index.tsx',

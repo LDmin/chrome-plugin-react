@@ -1,0 +1,43 @@
+{
+  "manifest_version": 2,
+  "name": "ludongmin",
+  "short_name": "ludongmin",
+  "description": "ludongmin",
+  "version": "1.0.0",
+  "icons": {
+    "16": "assets/icon16.png",
+    "48": "assets/icon48.png",
+    "128": "assets/icon128.png"
+  },
+  "browser_action": {
+    "default_icon": "assets/logo.png",
+    "default_title": "ludongmin",
+    "default_popup": "popup.html"
+  },
+  "background": {
+    "scripts": [
+      "background.bundle.js"
+    ]
+  },
+  "permissions": [
+    "activeTab",
+    "tabs",
+    "storage",
+    "webRequest",
+    "webRequestBlocking",
+    "http://*/*",
+    "https://*/*"
+  ],
+  "content_scripts": [{
+    "matches": [
+      "http://*/*",
+      "https://*/*"
+    ],
+    "js": [
+      "setup.bundle.js"
+    ]
+  }],
+  "web_accessible_resources": [
+    "inject.bundle.js"
+  ]
+}

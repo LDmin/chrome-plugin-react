@@ -1,0 +1,27 @@
+{
+  "extends": [
+    "tslint:latest",
+    "tslint-react",
+    "tslint-plugin-prettier"
+  ],
+  "rules": {
+    "prettier": true,
+    "no-var-requires": false,
+    "no-submodule-imports": false,
+    "object-literal-sort-keys": false,
+    "jsx-no-lambda": false,
+    "no-implicit-dependencies": false,
+    "no-console": false,
+    "ordered-imports": false,
+    "jsx-self-close": false,
+    "variable-name": false,
+    "no-object-literal-type-assertion": false,
+    "jsx-boolean-value": false,
+    "array-type": false,
+    "member-ordering": false,
+    "no-string-literal": false,
+    "vendorPrefix": false,
+    "prefer-conditional-expression": false,
+    "no-debugger": false
+  }
+}

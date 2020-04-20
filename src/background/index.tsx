@@ -1,5 +1,11 @@
+import { extend } from "umi-request";
+
+const umiRequest = extend({
+  getResponse: true,
+});
+
 // 用于页面存数据 key-value
-const storage = {};
+const storage: AnyObject = {};
 
 // 监听来自content-script的消息
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
@@ -26,48 +32,25 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
       }
       sendResponse(storage[key]);
       return true;
-    case "WebAppRequest":
-      fetch(request.payload?.url, request?.payload?.fetchOptions)
-        .then((res) => {
-          if (request?.payload?.requestType === "json") {
-            return res.json();
-          }
-          if (request?.payload?.requestType === "text") {
-            return res.text();
-          }
-          return res;
-        })
-        .then((res) => sendResponse(res));
-
+    case "ludongmin-fetch":
+      (async () => {
+        const req: LdmFetchRequest = request.payload;
+        let res: RequestResponse | null = null;
+        let message: string = "";
+        try {
+          res = await umiRequest(req.url, req.options);
+        } catch (e) {
+          message = JSON.stringify(e);
+        }
+        sendResponse({
+          messageFrom: "background",
+          message,
+          response: res,
+        } as LdmFetchResponse);
+      })();
       break;
   }
-});
 
-// chrome.webRequest.onBeforeRequest.addListener(
-//   function (details) {
-//     // TODO 同步最新订单(点击购买进行中)
-//     const url = details.url
-//     const orderIdIndex = url.search("orderId")
-//     if (orderIdIndex > 0 && details.type === 'image') {
-//       const start = orderIdIndex + 10
-//       const end = start + 16
-//       const orderId = url.slice(start, end)
-//       const orderLinks = `https://trade.aliexpress.com/order_detail.htm?orderId=${parseInt(orderId)}`
-//       getAliOrderDetail(orderLinks).then((result) => {
-//         const {
-//           orderData
-//         } = result
-//         ajaxRequest(API_PATHS.aliOrderSync, 'post', {
-//           orderData
-//         }, function (response) {
-//           if (response.errorno === 0) {
-//             // sendMessageToContentScript({action: 'toast', message: "Order placed successfully. Order numbers synced."})
-//           }
-//         })
-//       })
-//     }
-//   }, {
-//   urls: ["https://gj.mmstat.com/ae.pc_click.statweb_ae_click*"]
-// },
-//   ["blocking"]
-// );
+  // 必须return true才能支持异步
+  return true;
+});

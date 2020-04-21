@@ -1,6 +1,6 @@
 const path = require('path')
 const webpack = require('webpack')
-const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+// const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
@@ -14,10 +14,10 @@ module.exports = env => {
     mode: 'development',
     devtool: 'inline-source-map',
     entry: {
-      background: './src/background/index.tsx',
+      background: './src/background/index.ts',
       popup: './src/popup/index.tsx',
       setup: './src/setup/index.tsx',
-      inject: './src/setup/inject.tsx',
+      inject: './src/inject/index.ts',
     },
     output: {
       path: path.resolve(__dirname, 'dist'),
@@ -26,22 +26,27 @@ module.exports = env => {
     module: {
       rules: [{
           test: /\.tsx?$/,
-          use: [{
+          use: {
             loader: 'ts-loader',
-            // options: {
-            //   // 指定特定的ts编译配置，为了区分脚本的ts配置
-            //   configFile: path.resolve(__dirname, './tsconfig.json'),
-            // },
-          }, ],
+            options: {
+              // 指定特定的ts编译配置，为了区分脚本的ts配置
+              configFile: path.resolve(__dirname, './tsconfig.json'),
+            },
+          },
           exclude: /node_modules/,
         },
         {
-          test: /\.css$/,
-          use: [{
-              loader: MiniCssExtractPlugin.loader
+          test: /\.css|less$/,
+          use: [
+            'style-loader',
+            'css-loader',
+            {
+              loader: 'less-loader',
+              options: {
+                javascriptEnabled: true,
+              },
             },
-            'css-loader'
-          ]
+          ],
         },
         {
           test: /\.(ico|eot|otf|webp|ttf|woff|woff2)(\?.*)?$/,

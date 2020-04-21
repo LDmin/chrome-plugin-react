@@ -1,6 +1,7 @@
 import * as uuid from "uuid";
 // const wait = require("wait-to-generate");
 import wait from "wait-to-generate";
+import sleep from "../utils/sleep";
 
 const messageResponse: AnyObject = {};
 
@@ -14,7 +15,7 @@ window.addEventListener(
     switch (cmd) {
       case "ludongmin-fetch-response":
         if (messageId) {
-          messageResponse[messageId] = data?.response;
+          messageResponse[messageId] = data.response;
         }
       default:
         break;
@@ -24,10 +25,14 @@ window.addEventListener(
 );
 
 window.min = {
-  debugger: (timeout = 5) => {
-    setTimeout(() => {
+  debugger: async (timeout = 5) => {
+    console.log(`debugger倒计时：${timeout}s`);
+    await sleep(1000);
+    if (timeout > 1) {
+      window.min.debugger(timeout - 1);
+    } else {
       debugger;
-    }, timeout * 1000);
+    }
   },
   fetch: async (url, options = {}) => {
     const messageId = uuid.v4();
@@ -60,4 +65,5 @@ window.min = {
 // 用于判断是否已完成注入js
 const app = document.createElement("div");
 app.id = "ludongmin-inject-finish";
+app.style.display = "none";
 document.body.appendChild(app);

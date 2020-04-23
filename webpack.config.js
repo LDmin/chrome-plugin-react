@@ -17,6 +17,7 @@ module.exports = env => {
       background: './src/background/index.ts',
       popup: './src/popup/index.tsx',
       setup: './src/setup/index.tsx',
+      options: './src/options/index.tsx',
       inject: './src/inject/index.ts',
     },
     output: {
@@ -24,16 +25,38 @@ module.exports = env => {
       filename: '[name].bundle.js'
     },
     module: {
-      rules: [{
+      rules: [
+        // {
+        //   test: /\.tsx?$/,
+        //   use: {
+        //     loader: 'ts-loader',
+        //     options: {
+        //       // 指定特定的ts编译配置，为了区分脚本的ts配置
+        //       configFile: path.resolve(__dirname, './tsconfig.json'),
+        //     },
+        //   },
+        //   exclude: /node_modules/,
+        // },        
+        {
           test: /\.tsx?$/,
+          exclude: /(node_modules|bower_components)/,
           use: {
-            loader: 'ts-loader',
+            loader: 'babel-loader',
             options: {
-              // 指定特定的ts编译配置，为了区分脚本的ts配置
-              configFile: path.resolve(__dirname, './tsconfig.json'),
-            },
-          },
-          exclude: /node_modules/,
+              presets: [
+                '@babel/typescript',
+                '@babel/preset-react',
+              ],
+              plugins: [
+                [
+                  "@babel/plugin-proposal-optional-chaining"
+                ],
+                [
+                  "@babel/plugin-proposal-nullish-coalescing-operator"
+                ],
+              ]
+            }
+          }
         },
         {
           test: /\.css|less$/,
@@ -88,6 +111,12 @@ module.exports = env => {
       //   filename: '[name].css',
       //   chunkFilename: '[id].css'
       // }),
+      new HtmlWebpackPlugin({
+        inject: true,
+        chunks: ['options'],
+        filename: 'options.html',
+        template: './src/options/index.html'
+      }),
       new HtmlWebpackPlugin({
         inject: true,
         chunks: ['popup'],

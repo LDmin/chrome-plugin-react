@@ -9,6 +9,7 @@
     "48": "assets/icon48.png",
     "128": "assets/icon128.png"
   },
+  "options_page": "options.html",
   "browser_action": {
     "default_icon": "assets/logo.png",
     "default_title": "ludongmin",

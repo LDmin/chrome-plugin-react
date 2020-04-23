@@ -38,3 +38,38 @@ interface LdmFetchResponse<D = any> {
   message?: string
   response: RequestResponse<D>
 }
+
+interface TaskValue {
+  id: string
+  type: 'notification'
+  /**
+   * 如果start不为空，则是循环任务
+   *
+   * @type {string}
+   * @memberof Todo
+   */
+  start?: string
+  end: string
+  time?: string
+}
+
+interface Todo extends TaskValue {
+  title: string
+  message?: string
+  contextMessage?: string
+  disabled?: boolean
+}
+
+type Todos = Todo[]
+
+interface ChromeStorageChange<T = any> {
+  newValue?: T
+  oldValue?: T
+}
+
+interface Tasks<T = any> {
+  [key: string]: {
+    task: number
+    value: T
+  }
+}

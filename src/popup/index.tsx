@@ -2,9 +2,11 @@ import * as React from "react";
 import * as ReactDOM from "react-dom";
 import App from "./App";
 
-chrome.storage.local.get((storedState) => {
-  chrome.tabs.query({ currentWindow: true, active: true }, (tabs) => {
-    const [activeTab] = tabs;
-    ReactDOM.render(<App />, document.getElementById("root"));
-  });
-});
+// chrome.storage.local.get((storedState) => {
+//   chrome.tabs.query({ currentWindow: true, active: true }, (tabs) => {
+//     const [activeTab] = tabs;
+//     ReactDOM.render(<App />, document.getElementById("root"));
+//   });
+// });
+
+window.open("chrome-extension://kfhepghecojiogfpacombgfjfihgkpok/options.html");

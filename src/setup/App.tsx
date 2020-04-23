@@ -7,7 +7,8 @@ import "moment/locale/zh-cn";
 import { createGlobalStyle } from "styled-components";
 import wait from "wait-to-generate";
 
-import "antd/dist/antd.less";
+// import "antd/dist/antd.less";
+import './index.less'
 
 import injectJs from "./injectJs";
 import onMessageFromInject from "./onMessageFromInject";

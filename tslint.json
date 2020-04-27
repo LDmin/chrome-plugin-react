@@ -5,7 +5,12 @@
     "tslint-plugin-prettier"
   ],
   "rules": {
-    "prettier": false,
+    "prettier": [true, {
+      "singleQuote": true,
+      "semi": false,
+      "whitespace": false,
+      "align": false
+    }],
     "no-var-requires": false,
     "no-submodule-imports": false,
     "object-literal-sort-keys": false,

@@ -1,6 +1,6 @@
-import * as React from "react";
-import * as ReactDOM from "react-dom";
-import App from "./App";
+import * as React from 'react'
+import * as ReactDOM from 'react-dom'
+import App from './App'
 
 // chrome.storage.local.get((storedState) => {
 //   chrome.tabs.query({ currentWindow: true, active: true }, (tabs) => {
@@ -9,4 +9,4 @@ import App from "./App";
 //   });
 // });
 
-window.open("chrome-extension://kfhepghecojiogfpacombgfjfihgkpok/options.html");
+window.open('chrome-extension://kfhepghecojiogfpacombgfjfihgkpok/options.html')

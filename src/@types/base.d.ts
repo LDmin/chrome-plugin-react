@@ -13,6 +13,8 @@ interface Window {
     get: <T = any>(url: string, options?: any) => Promise<LdmFetchResponse<T>>
     post: <T = any>(url: string, data?: any) => Promise<LdmFetchResponse<T>>
     delete: <T = any>(url: string) => Promise<LdmFetchResponse<T>>
+    sleep: (ms: number) => Promise<void>
+    jquery: JQueryStatic
   }
 }
 

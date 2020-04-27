@@ -1,32 +1,35 @@
-import sendMessageToBackground from "./sendMessageToBackground";
+import sendMessageToBackground from './sendMessageToBackground'
+import { NAMESPACE } from 'src/constant'
 
 export default () => {
   window.addEventListener(
-    "message",
+    'message',
     (e) => {
       // 接收inject.js message
-      const { cmd, data, messageId }: MessageData<LdmFetchRequest> = e.data;
+      const { cmd, data, messageId }: MessageData<LdmFetchRequest> = e.data
       if (data) {
         switch (cmd) {
-          case "ludongmin-fetch-request":
-            (async () => {
+          case NAMESPACE + 'fetch-request':
+            // tslint:disable-next-line: whitespace
+            ;(async () => {
               const res: LdmFetchResponse = await sendMessageToBackground(
-                "ludongmin-fetch",
+                NAMESPACE + 'fetch',
                 data
-              );
+              )
               postMessage(
                 {
-                  cmd: "ludongmin-fetch-response",
+                  cmd: NAMESPACE + 'fetch-response',
                   messageId,
                   data: res,
                 },
-                "*"
-              );
-            })();
-            break;
+                '*'
+              )
+            })()
+            // tslint:disable-next-line: align
+            break
         }
       }
     },
     false
-  );
-};
+  )
+}

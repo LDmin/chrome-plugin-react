@@ -7,7 +7,6 @@ import 'moment/locale/zh-cn'
 import styled, { createGlobalStyle } from 'styled-components'
 
 import 'antd/dist/antd.less'
-import Todo from './Todo'
 import Anchor from './Anchor'
 
 moment.locale('zh-cn')
@@ -34,9 +33,7 @@ const App: FC = () => {
           </Card>
         </Col>
         <Col span={18}>
-          <Wrapper>
-            <Todo />
-          </Wrapper>
+          <Wrapper></Wrapper>
         </Col>
       </Row>
     </ConfigProvider>

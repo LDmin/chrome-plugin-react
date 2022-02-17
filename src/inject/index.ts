@@ -2,14 +2,12 @@ import * as uuid from 'uuid'
 // const wait = require("wait-to-generate");
 import wait from 'wait-to-generate'
 import sleep from '../utils/sleep'
-import jquery from 'jquery'
+import $ from 'jquery'
 import { NAMESPACE } from '../constant'
 
 const messageResponse: AnyObject = {}
 
-/*
-监听content-script.js message 用于交互
- */
+// 监听content-script.js message 用于交互
 window.addEventListener(
   'message',
   async (e) => {
@@ -26,6 +24,7 @@ window.addEventListener(
   false
 )
 
+// 注入方法
 window.min = {
   debugger: async (timeout = 5) => {
     console.log(`debugger倒计时：${timeout}s`)
@@ -66,11 +65,8 @@ window.min = {
   // 等待
   sleep,
   // jquery
-  jquery,
+  jquery: $,
 }
 
 // 用于判断是否已完成注入js
-const app = document.createElement('div')
-app.id = NAMESPACE + 'inject-finish'
-app.style.display = 'none'
-document.body.appendChild(app)
+$('body').attr(NAMESPACE + 'inject-finish', 'true')

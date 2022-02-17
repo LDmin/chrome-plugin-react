@@ -6,13 +6,15 @@ import moment from 'moment'
 import 'moment/locale/zh-cn'
 import { createGlobalStyle } from 'styled-components'
 import wait from 'wait-to-generate'
+import $ from 'jquery'
 
 // import "antd/dist/antd.less";
 import './index.less'
 
-import injectJs from './injectJs'
-import onMessageFromInject from './onMessageFromInject'
+import injectJs from './handle/injectJs'
+import onMessageFromInject from './handle/onMessageFromInject'
 import { NAMESPACE } from '../constant'
+import Sites from './sites'
 
 moment.locale('zh-cn')
 
@@ -34,7 +36,7 @@ const App: FC = () => {
       // 1.注入js
       injectJs('inject.bundle.js')
       // 2. 等待js注入完成
-      await wait(() => document.getElementById(NAMESPACE + 'inject-finish'))
+      await wait(() => $('body').attr(NAMESPACE + 'inject-finish'))
       // 3. 监听inject传来的事件
       onMessageFromInject()
     })()
@@ -42,6 +44,7 @@ const App: FC = () => {
   return (
     <ConfigProvider locale={zhCN}>
       <GlobalStyle></GlobalStyle>
+      <Sites></Sites>
     </ConfigProvider>
   )
 }

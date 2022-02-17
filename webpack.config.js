@@ -3,13 +3,17 @@ const webpack = require('webpack')
 // const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
-const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer')
+  .BundleAnalyzerPlugin
 
-module.exports = env => {
+module.exports = (env) => {
   return {
     resolve: {
       modules: ['./node_modules'],
       extensions: ['.ts', '.tsx', '.js', '.jsx'],
+      alias: {
+        src: path.resolve(__dirname, 'src'),
+      },
     },
     mode: 'development',
     devtool: 'inline-source-map',
@@ -22,7 +26,7 @@ module.exports = env => {
     },
     output: {
       path: path.resolve(__dirname, 'dist'),
-      filename: '[name].bundle.js'
+      filename: '[name].bundle.js',
     },
     module: {
       rules: [
@@ -36,27 +40,20 @@ module.exports = env => {
         //     },
         //   },
         //   exclude: /node_modules/,
-        // },        
+        // },
         {
           test: /\.tsx?$/,
           exclude: /(node_modules|bower_components)/,
           use: {
             loader: 'babel-loader',
             options: {
-              presets: [
-                '@babel/typescript',
-                '@babel/preset-react',
-              ],
+              presets: ['@babel/typescript', '@babel/preset-react'],
               plugins: [
-                [
-                  "@babel/plugin-proposal-optional-chaining"
-                ],
-                [
-                  "@babel/plugin-proposal-nullish-coalescing-operator"
-                ],
-              ]
-            }
-          }
+                ['@babel/plugin-proposal-optional-chaining'],
+                ['@babel/plugin-proposal-nullish-coalescing-operator'],
+              ],
+            },
+          },
         },
         {
           test: /\.css|less$/,
@@ -73,7 +70,7 @@ module.exports = env => {
         },
         {
           test: /\.(ico|eot|otf|webp|ttf|woff|woff2)(\?.*)?$/,
-          use: 'file-loader?limit=100000'
+          use: 'file-loader?limit=100000',
         },
         {
           test: /\.(jpe?g|png|gif|svg)$/i,
@@ -83,22 +80,22 @@ module.exports = env => {
               loader: 'img-loader',
               options: {
                 enabled: true,
-                optipng: true
-              }
-            }
-          ]
-        }
-      ]
+                optipng: true,
+              },
+            },
+          ],
+        },
+      ],
     },
     stats: {
       children: false,
       chunks: false,
       chunkModules: false,
       chunkOrigins: false,
-      modules: false
+      modules: false,
     },
     performance: {
-      hints: false
+      hints: false,
     },
     plugins: [
       // new webpack.DefinePlugin({
@@ -115,31 +112,32 @@ module.exports = env => {
         inject: true,
         chunks: ['options'],
         filename: 'options.html',
-        template: './src/options/index.html'
+        template: './src/options/index.html',
       }),
       new HtmlWebpackPlugin({
         inject: true,
         chunks: ['popup'],
         filename: 'popup.html',
-        template: './src/popup/index.html'
+        template: './src/popup/index.html',
       }),
       new HtmlWebpackPlugin({
         inject: true,
         chunks: ['setup'],
         filename: 'setup.html',
-        template: './src/setup/index.html'
+        template: './src/setup/index.html',
       }),
       // copy extension manifest and icons
-      new CopyWebpackPlugin([{
-          from: './src/manifest.json'
+      new CopyWebpackPlugin([
+        {
+          from: './src/manifest.json',
         },
         {
           context: './src/assets',
           from: '*',
-          to: 'assets'
-        }
+          to: 'assets',
+        },
       ]),
       // new BundleAnalyzerPlugin()
     ],
-  };
+  }
 }

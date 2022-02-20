@@ -1,7 +1,7 @@
 import React from 'react'
-import { Anchor } from 'antd';
+import { Anchor } from 'antd'
 
-const { Link } = Anchor;
+const { Link } = Anchor
 
 const AnchorCpn: React.SFC = () => {
   return (

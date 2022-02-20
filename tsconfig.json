@@ -12,7 +12,6 @@
     "baseUrl": ".",
     "strict": true,
     "types": [
-      "node",
       "chrome",
       "umi-request"
     ],

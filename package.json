@@ -1,5 +1,5 @@
 {
-  "name": "ludongmin",
+  "name": "chrome-plugin",
   "private": true,
   "version": "1.0.0",
   "types": "dist/index.d.ts",

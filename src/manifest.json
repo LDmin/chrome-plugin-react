@@ -1,8 +1,8 @@
 {
   "manifest_version": 2,
-  "name": "ludongmin",
-  "short_name": "ludongmin",
-  "description": "ludongmin",
+  "name": "chrome-plugin",
+  "short_name": "chrome-plugin",
+  "description": "chrome-plugin",
   "version": "1.0.0",
   "icons": {
     "16": "assets/icon16.png",
@@ -12,7 +12,7 @@
   "options_page": "options.html",
   "browser_action": {
     "default_icon": "assets/logo.png",
-    "default_title": "ludongmin",
+    "default_title": "chrome-plugin",
     "default_popup": "popup.html"
   },
   "background": {
@@ -30,15 +30,17 @@
     "http://*/*",
     "https://*/*"
   ],
-  "content_scripts": [{
-    "matches": [
-      "http://*/*",
-      "https://*/*"
-    ],
-    "js": [
-      "setup.bundle.js"
-    ]
-  }],
+  "content_scripts": [
+    {
+      "matches": [
+        "http://*/*",
+        "https://*/*"
+      ],
+      "js": [
+        "setup.bundle.js"
+      ]
+    }
+  ],
   "web_accessible_resources": [
     "inject.bundle.js"
   ]
